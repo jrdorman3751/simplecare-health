@@ -1,55 +1,128 @@
-/* ─── Reset & Base ─── */
+/* ============================================================
+   TRANSPARENCY LLC — style.css
+   simplecare.health
+
+   HOW THIS FILE IS ORGANIZED:
+   1.  Reset & Base        — clears browser defaults, sets body font/color
+   2.  Design Tokens       — all colors, fonts, sizes in one place (edit here!)
+   3.  Typography          — heading and paragraph sizes
+   4.  Nav                 — sticky top navigation bar
+   5.  Hero                — big intro section at the top of the page
+   6.  Sections            — shared styles for every content section
+   7.  Mission             — two-column layout with stat cards
+   8.  Steps               — numbered list in the "How it works" section
+   9.  Ventures            — card grid showing each business
+   10. Contact             — centered contact section
+   11. Footer              — bottom bar
+   12. Animations          — fade-in on scroll, ticker scroll
+   13. Responsive          — mobile/tablet layout adjustments
+
+   TO CHANGE A COLOR: edit the value in :root {} below.
+   TO CHANGE A FONT SIZE: find the element and edit font-size.
+   TO CHANGE SPACING: padding and margin values control whitespace.
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET & BASE
+   Removes default browser margins/padding so everything starts
+   from zero. box-sizing: border-box means padding is included
+   inside element widths — much easier to work with.
+   ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+
+/* ============================================================
+   2. DESIGN TOKENS (CSS Variables)
+   Single source of truth for the whole site's look and feel.
+   Change a value here and it updates everywhere it's used.
+
+   COLORS:
+   --ink         = main text color (near black)
+   --ink-muted   = secondary text (paragraphs, captions)
+   --ink-faint   = subtle text (labels, metadata)
+   --paper       = page background (warm off-white)
+   --paper-dark  = dark section background (near black)
+   --paper-card  = white card backgrounds
+   --accent      = green highlight (buttons, active borders)
+   --accent-light= pale green for badge backgrounds
+   --rule        = light border/divider on light backgrounds
+   --rule-dark   = border/divider on dark backgrounds
+
+   FONTS:
+   --mono = monospace font (labels, numbers, code-feel elements)
+   --sans = clean sans-serif (body text, nav, paragraphs)
+
+   SIZES:
+   --radius = corner rounding on cards/buttons (4px = very subtle)
+   --max    = maximum content width across the page (1100px)
+   ============================================================ */
 :root {
-  --ink: #0f0f0e;
-  --ink-muted: #5a5a56;
-  --ink-faint: #9a9994;
-  --paper: #f5f3ef;
-  --paper-dark: #1a1a18;
-  --paper-card: #ffffff;
-  --accent: #1a6b3c;
+  --ink:          #0f0f0e;
+  --ink-muted:    #5a5a56;
+  --ink-faint:    #9a9994;
+  --paper:        #f5f3ef;
+  --paper-dark:   #1a1a18;
+  --paper-card:   #ffffff;
+  --accent:       #1a6b3c;
   --accent-light: #e8f5ee;
-  --rule: rgba(0,0,0,0.1);
-  --rule-dark: rgba(255,255,255,0.1);
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --radius: 4px;
-  --max: 1100px;
+  --rule:         rgba(0,0,0,0.1);
+  --rule-dark:    rgba(255,255,255,0.1);
+  --mono:         'DM Mono', monospace;
+  --sans:         'DM Sans', sans-serif;
+  --radius:       4px;
+  --max:          1100px;
 }
 
+/* Enables smooth scrolling when clicking anchor links like #mission */
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--sans);
   background: var(--paper);
   color: var(--ink);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  font-size: 16px;       /* base size — rem units scale from this */
+  line-height: 1.6;      /* comfortable line spacing for reading */
+  -webkit-font-smoothing: antialiased; /* crisper text rendering on Mac/iOS */
 }
 
-/* ─── Typography ─── */
-h1 { font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; }
+
+/* ============================================================
+   3. TYPOGRAPHY
+   clamp(min, preferred, max) scales font sizes fluidly with
+   screen width — large on desktop, smaller on mobile —
+   without needing separate media queries just for fonts.
+   ============================================================ */
+h1 { font-size: clamp(2.8rem, 6vw, 5rem);     font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; }
 h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; }
 h3 { font-size: 1.1rem; font-weight: 500; letter-spacing: -0.01em; }
-p  { color: var(--ink-muted); }
+p  { color: var(--ink-muted); } /* paragraphs slightly lighter than headings */
 
-a { color: inherit; text-decoration: none; }
+a { color: inherit; text-decoration: none; } /* links match surrounding text color */
 
-/* ─── Nav ─── */
+
+/* ============================================================
+   4. NAV — sticky top navigation bar
+   position: sticky keeps it fixed at the top as you scroll.
+   z-index: 100 ensures it sits above all other page content.
+   backdrop-filter: blur adds a frosted-glass effect behind it.
+   ============================================================ */
 nav {
   position: sticky; top: 0; z-index: 100;
   background: var(--paper);
   border-bottom: 1px solid var(--rule);
   backdrop-filter: blur(8px);
 }
+
+/* Centers content and controls the nav bar height */
 .nav-inner {
   max-width: var(--max); margin: 0 auto;
   padding: 0 32px;
   height: 56px;
   display: flex; align-items: center; justify-content: space-between;
 }
+
+/* "Transparency" brand name in the top left */
 .wordmark {
   font-family: var(--mono);
   font-size: 0.95rem;
@@ -57,25 +130,34 @@ nav {
   letter-spacing: 0.02em;
   color: var(--ink);
 }
+
+/* Navigation links: Mission, How it works, Ventures, Contact */
 .nav-links { display: flex; gap: 32px; }
 .nav-links a {
   font-size: 0.85rem;
   color: var(--ink-muted);
-  transition: color 0.2s;
+  transition: color 0.2s; /* smooth color shift on hover */
 }
 .nav-links a:hover { color: var(--ink); }
+
+/* Hamburger ☰ button — hidden on desktop, visible on mobile */
 .nav-toggle {
   display: none;
   background: none; border: none;
   font-size: 1.2rem; cursor: pointer; color: var(--ink);
 }
 
-/* ─── Hero ─── */
+
+/* ============================================================
+   5. HERO — the first big section visitors see
+   ============================================================ */
 .hero {
   max-width: var(--max); margin: 0 auto;
-  padding: 100px 32px 80px;
+  padding: 100px 32px 80px; /* top / left+right / bottom */
   position: relative;
 }
+
+/* Small uppercase label above the main heading */
 .hero-eyebrow {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -84,13 +166,18 @@ nav {
   text-transform: uppercase;
   margin-bottom: 24px;
 }
+
 .hero h1 { margin-bottom: 24px; }
+
+/* Subtitle paragraph under the main heading */
 .hero-sub {
-  max-width: 560px;
+  max-width: 560px;   /* limits line length for readability */
   font-size: 1.1rem;
   line-height: 1.7;
   margin-bottom: 40px;
 }
+
+/* Primary call-to-action button */
 .btn {
   display: inline-block;
   font-family: var(--mono);
@@ -99,18 +186,22 @@ nav {
   color: var(--paper);
   padding: 12px 24px;
   border-radius: var(--radius);
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 0.15s; /* smooth hover animation */
   letter-spacing: 0.02em;
 }
+/* Hover: turns green and lifts up slightly */
 .btn:hover { background: var(--accent); transform: translateY(-1px); }
 
-/* Ticker */
+/* ── Scrolling ticker strip at the bottom of the hero ──
+   overflow: hidden clips text at the edges.
+   The HTML contains the words twice so there's no gap when it loops.
+   To change the speed: adjust the 18s value below. */
 .hero-ticker {
   margin-top: 72px;
   padding-top: 24px;
   border-top: 1px solid var(--rule);
-  overflow: hidden;
-  white-space: nowrap;
+  overflow: hidden;       /* hides text that scrolls past the edges */
+  white-space: nowrap;    /* keeps all text on one line */
 }
 .hero-ticker span {
   display: inline-block;
@@ -118,27 +209,36 @@ nav {
   font-size: 0.75rem;
   color: var(--ink-faint);
   letter-spacing: 0.05em;
-  animation: ticker 18s linear infinite;
+  animation: ticker 18s linear infinite; /* 18s = scroll speed */
 }
-.hero-ticker .sep { margin: 0 16px; }
+.hero-ticker .sep { margin: 0 16px; } /* spacing around · separator dots */
+
+/* Moves text left by 50% (one full copy), then resets — seamless loop */
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* ─── Sections ─── */
-.section { padding: 96px 0; }
-.section-dark {
-  background: var(--paper-dark);
-  color: #e8e6e0;
-}
-.section-dark p { color: #9a9890; }
-.section-dark h2 { color: #e8e6e0; }
-.section-dark .section-label { color: #4a4a46; }
-.section-dark .step-num { color: #2a2a28; }
-.section-dark .step h3 { color: #e8e6e0; }
 
+/* ============================================================
+   6. SECTIONS — shared styles used by all content sections
+   ============================================================ */
+
+/* Every <section class="section"> gets generous vertical padding */
+.section { padding: 96px 0; }
+
+/* Dark-background sections override text colors for legibility */
+.section-dark { background: var(--paper-dark); color: #e8e6e0; }
+.section-dark p               { color: #9a9890; }
+.section-dark h2              { color: #e8e6e0; }
+.section-dark .section-label  { color: #4a4a46; }
+.section-dark .step-num       { color: #2a2a28; }
+.section-dark .step h3        { color: #e8e6e0; }
+
+/* Centers and width-limits content inside a section */
 .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+/* Small ALL-CAPS eyebrow label above section headings e.g. "MISSION" */
 .section-label {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -147,25 +247,35 @@ nav {
   color: var(--ink-faint);
   margin-bottom: 16px;
 }
+
+/* Introductory paragraph that sits below a section heading */
 .section-intro {
   font-size: 1.05rem;
-  max-width: 560px;
+  max-width: 560px;     /* limits line length for readability */
   margin-top: 16px;
   margin-bottom: 56px;
 }
 
-/* ─── Mission two-col ─── */
+
+/* ============================================================
+   7. MISSION SECTION — two-column text + stat cards layout
+   grid-template-columns: 1fr 1fr = two equal-width columns.
+   gap: 64px = space between the two columns.
+   ============================================================ */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: start;
+  align-items: start; /* both columns align to their tops */
   margin-top: 8px;
 }
 .col-text h2 { margin-bottom: 24px; }
-.col-text p + p { margin-top: 16px; }
+.col-text p + p { margin-top: 16px; } /* space between back-to-back paragraphs */
 
+/* Right column: stacks stat cards vertically */
 .col-stats { display: flex; flex-direction: column; gap: 16px; }
+
+/* Individual stat card e.g. "Hidden fees / $0" */
 .stat-card {
   border: 1px solid var(--rule);
   border-radius: var(--radius);
@@ -190,30 +300,44 @@ nav {
 }
 .stat-sub { font-size: 0.85rem; color: var(--ink-muted); }
 
-/* ─── Steps ─── */
-.steps { display: flex; flex-direction: column; gap: 0; }
+
+/* ============================================================
+   8. STEPS — "How it works" numbered list
+   Each step is a two-column grid: narrow number + wide content.
+   Steps are separated by full-width border lines.
+   ============================================================ */
+.steps { display: flex; flex-direction: column; }
+
 .step {
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 80px 1fr; /* 80px for number, rest for text */
   gap: 32px;
   padding: 40px 0;
   border-bottom: 1px solid var(--rule-dark);
 }
-.step:first-child { border-top: 1px solid var(--rule-dark); }
+.step:first-child { border-top: 1px solid var(--rule-dark); } /* top line on first step only */
+
 .step-num {
   font-family: var(--mono);
   font-size: 0.8rem;
   color: #3a3a36;
-  padding-top: 4px;
+  padding-top: 4px; /* nudges number down to align with heading */
 }
 .step-content h3 { margin-bottom: 10px; }
 
-/* ─── Ventures ─── */
+
+/* ============================================================
+   9. VENTURES — card grid showing each business
+   repeat(3, 1fr) = three equal columns automatically.
+   To add a 4th venture: just add a new .venture-card in the
+   HTML — the grid handles placement automatically.
+   ============================================================ */
 .ventures-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+
 .venture-card {
   border: 1px solid var(--rule);
   border-radius: var(--radius);
@@ -221,9 +345,12 @@ nav {
   background: var(--paper-card);
   position: relative;
 }
-.venture-active { border-color: var(--accent); }
+/* Active venture gets a colored border to stand out */
+.venture-active      { border-color: var(--accent); }
+/* Placeholder card has no background */
 .venture-placeholder { background: transparent; }
 
+/* Status badge — "Active", "Coming soon", "Exploring" */
 .venture-status {
   font-family: var(--mono);
   font-size: 0.65rem;
@@ -236,17 +363,14 @@ nav {
   border-radius: 2px;
   margin-bottom: 16px;
 }
-.venture-status-soon {
-  background: #fef3e2;
-  color: #9a6200;
-}
-.venture-status-idea {
-  background: #f0f0ee;
-  color: var(--ink-muted);
-}
-.venture-card h3 { margin-bottom: 10px; }
-.venture-card p { font-size: 0.9rem; line-height: 1.6; }
+/* Color variants for different status types */
+.venture-status-soon { background: #fef3e2; color: #9a6200; } /* amber */
+.venture-status-idea { background: #f0f0ee; color: var(--ink-muted); } /* grey */
 
+.venture-card h3 { margin-bottom: 10px; }
+.venture-card p  { font-size: 0.9rem; line-height: 1.6; }
+
+/* Numbers table inside a venture card e.g. "Creator cut: 70%" */
 .venture-numbers {
   margin-top: 24px;
   padding-top: 20px;
@@ -255,28 +379,23 @@ nav {
   flex-direction: column;
   gap: 10px;
 }
-.vn-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.vn-label {
-  font-size: 0.78rem;
-  color: var(--ink-faint);
-  font-family: var(--mono);
-}
-.vn-value {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--ink);
-  font-family: var(--mono);
-}
+/* Each row: label floated left, value floated right */
+.vn-item  { display: flex; justify-content: space-between; align-items: baseline; }
+.vn-label { font-size: 0.78rem; color: var(--ink-faint); font-family: var(--mono); }
+.vn-value { font-size: 0.9rem;  font-weight: 500; color: var(--ink); font-family: var(--mono); }
 
-/* ─── Contact ─── */
+
+/* ============================================================
+   10. CONTACT SECTION
+   Lives inside a .section-dark so it has a dark background.
+   text-align: center on the container centers everything.
+   ============================================================ */
 .contact-container { text-align: center; }
 .contact-container h2 { margin-bottom: 16px; }
 .contact-container .section-label { display: block; }
 .contact-info { margin: 40px 0 16px; }
+
+/* Clickable email address link */
 .contact-link {
   display: inline-flex;
   align-items: center;
@@ -284,7 +403,7 @@ nav {
   font-family: var(--mono);
   font-size: 1.1rem;
   color: #e8e6e0;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2); /* subtle underline */
   padding-bottom: 4px;
   transition: border-color 0.2s, color 0.2s;
 }
@@ -292,11 +411,13 @@ nav {
 .contact-icon { font-size: 1rem; }
 .contact-note { font-size: 0.85rem; color: #5a5a56; margin-top: 16px; }
 
-/* ─── Footer ─── */
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 24px 0;
-}
+
+/* ============================================================
+   11. FOOTER
+   flex-wrap: wrap lets the three items stack on narrow screens
+   instead of overflowing or getting squished.
+   ============================================================ */
+footer { border-top: 1px solid var(--rule); padding: 24px 0; }
 .footer-inner {
   display: flex;
   align-items: center;
@@ -304,19 +425,21 @@ footer {
   flex-wrap: wrap;
   gap: 8px;
 }
-.footer-copy {
-  font-size: 0.78rem;
-  color: var(--ink-faint);
-  font-family: var(--mono);
-}
-.footer-tagline {
-  font-size: 0.78rem;
-  color: var(--ink-faint);
-  font-family: var(--mono);
-  font-style: italic;
-}
+.footer-copy    { font-size: 0.78rem; color: var(--ink-faint); font-family: var(--mono); }
+.footer-tagline { font-size: 0.78rem; color: var(--ink-faint); font-family: var(--mono); font-style: italic; }
 
-/* ─── Fade-in animation ─── */
+
+/* ============================================================
+   12. ANIMATIONS
+
+   FADE-IN ON SCROLL:
+   Elements start invisible (opacity: 0) and shifted down 16px.
+   JavaScript watches for them to enter the viewport and adds
+   the .visible class, which triggers the transition.
+
+   To make any new element fade in on scroll, add
+   class="fade-target" to it in index.html — JS does the rest.
+   ============================================================ */
 .fade-target {
   opacity: 0;
   transform: translateY(16px);
@@ -327,15 +450,30 @@ footer {
   transform: translateY(0);
 }
 
-/* ─── Responsive ─── */
+
+/* ============================================================
+   13. RESPONSIVE — layout adjustments for smaller screens
+   @media (max-width: Xpx) rules apply only when the browser
+   window is narrower than X pixels.
+
+   860px = tablet: stack two-column layouts to single column
+   640px = mobile: tighten padding, enable hamburger nav
+   ============================================================ */
+
+/* Tablet: collapse side-by-side layouts to stacked */
 @media (max-width: 860px) {
-  .two-col { grid-template-columns: 1fr; gap: 48px; }
+  .two-col       { grid-template-columns: 1fr; gap: 48px; }
   .ventures-grid { grid-template-columns: 1fr; }
 }
+
+/* Mobile: reduce padding, switch to hamburger nav, stack footer */
 @media (max-width: 640px) {
-  .hero { padding: 64px 20px 60px; }
+  .hero      { padding: 64px 20px 60px; }
   .container { padding: 0 20px; }
   .nav-inner { padding: 0 20px; }
+
+  /* Nav links are hidden by default on mobile.
+     JavaScript toggles the .open class when ☰ is tapped. */
   .nav-links {
     display: none;
     position: absolute; top: 56px; left: 0; right: 0;
@@ -344,9 +482,10 @@ footer {
     border-bottom: 1px solid var(--rule);
     padding: 8px 0;
   }
-  .nav-links.open { display: flex; }
-  .nav-links a { padding: 12px 20px; font-size: 0.9rem; }
-  .nav-toggle { display: block; }
-  .step { grid-template-columns: 48px 1fr; gap: 16px; }
+  .nav-links.open { display: flex; } /* JS adds this class on hamburger tap */
+  .nav-links a    { padding: 12px 20px; font-size: 0.9rem; }
+  .nav-toggle     { display: block; } /* show the ☰ button on mobile */
+
+  .step         { grid-template-columns: 48px 1fr; gap: 16px; } /* narrower number column */
   .footer-inner { flex-direction: column; text-align: center; }
 }

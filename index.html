@@ -1,36 +1,92 @@
 <!DOCTYPE html>
+<!--
+  TRANSPARENCY LLC — index.html
+  simplecare.health
+
+  HOW THIS FILE IS ORGANIZED:
+  1. <head>      — page metadata, fonts, stylesheet link (not visible on page)
+  2. <nav>       — sticky top navigation bar
+  3. .hero       — first big section with headline, subtitle, button, ticker
+  4. #mission    — two-column mission statement + stat cards
+  5. #how        — "How it works" numbered steps (dark background)
+  6. #ventures   — card grid of current/upcoming businesses
+  7. #contact    — contact section with email link (dark background)
+  8. <footer>    — bottom bar with copyright
+  9. <script>    — small JavaScript for nav toggle, smooth scroll, fade-in
+
+  TO ADD A NEW SECTION: copy an existing <section> block and change the id.
+  TO EDIT TEXT: find the element and change the text between the tags.
+  TO ADD A NEW VENTURE: copy a .venture-card div inside .ventures-grid.
+  PLACEHOLDERS: search for <!-- PLACEHOLDER to find spots needing updates.
+-->
 <html lang="en">
 <head>
+  <!-- Character encoding — always include, prevents garbled text -->
   <meta charset="UTF-8">
+
+  <!-- Makes the page scale correctly on phones instead of zooming out -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tab title and browser bookmark name -->
   <title>Transparency — Honest Products. Real Numbers.</title>
+
+  <!-- Description shown in Google search results (keep under 160 characters) -->
   <meta name="description" content="Transparency LLC builds products and companies with full financial visibility. No hidden margins, no inflated markups. Just honest goods and services.">
+
+  <!-- Google Fonts: preconnect speeds up font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet — all visual styling lives in style.css -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ============================================================
+       NAV — sticky top bar
+       .nav-inner centers and constrains the content width.
+       .wordmark = brand name on the left.
+       .nav-links = page anchor links on the right.
+       .nav-toggle = hamburger ☰ button (only visible on mobile).
+       ============================================================ -->
   <nav>
     <div class="nav-inner">
       <a href="/" class="wordmark">Transparency</a>
       <div class="nav-links">
+        <!-- Each href="#id" scrolls to the matching section on the page -->
         <a href="#mission">Mission</a>
         <a href="#how">How it works</a>
         <a href="#ventures">Ventures</a>
         <a href="#contact">Contact</a>
       </div>
+      <!-- Hamburger button — JavaScript toggles .nav-links.open on click -->
       <button class="nav-toggle" aria-label="Menu">☰</button>
     </div>
   </nav>
 
-  <!-- HERO -->
+
+  <!-- ============================================================
+       HERO — first section visitors see
+       Contains: eyebrow label, h1 heading, subtitle, CTA button,
+       and a scrolling ticker strip at the bottom.
+       ============================================================ -->
   <section class="hero">
+    <!-- Small label above the main heading -->
     <div class="hero-eyebrow">Transparency LLC</div>
+
+    <!-- Main headline — keep short and punchy -->
     <h1>Every dollar,<br>accounted for.</h1>
+
+    <!-- Subtitle — 1-2 sentences describing the mission -->
     <p class="hero-sub">We build companies that show you exactly what things cost, what they earn, and why. No dark patterns. No hidden margins. Just honest products from people who think you deserve to know.</p>
+
+    <!-- Call-to-action button — links to #ventures section -->
     <a href="#ventures" class="btn">See our ventures →</a>
+
+    <!-- Scrolling ticker strip
+         aria-hidden="true" hides it from screen readers (decorative only).
+         The text is repeated twice in the HTML so the loop is seamless.
+         To edit the words, change both copies to match. -->
     <div class="hero-ticker" aria-hidden="true">
       <span>Cost of goods</span>
       <span class="sep">·</span>
@@ -44,6 +100,7 @@
       <span class="sep">·</span>
       <span>Profit per unit</span>
       <span class="sep">·</span>
+      <!-- Second copy — DO NOT DELETE, needed for seamless loop -->
       <span>Cost of goods</span>
       <span class="sep">·</span>
       <span>Operating overhead</span>
@@ -55,44 +112,67 @@
     </div>
   </section>
 
-  <!-- MISSION -->
+
+  <!-- ============================================================
+       MISSION SECTION
+       id="mission" is the anchor that nav link #mission scrolls to.
+       Two-column layout: text on left, stat cards on right.
+       ============================================================ -->
   <section class="section" id="mission">
     <div class="container">
       <div class="section-label">Mission</div>
       <div class="two-col">
+
+        <!-- Left column: mission text -->
         <div class="col-text">
           <h2>Transparency is the product.</h2>
           <p>Most companies hide their numbers because the numbers are embarrassing. We don't. Every venture under the Transparency LLC umbrella publishes its financials in plain language — what it costs to build, what it earns, and what's left over.</p>
           <p>We believe that when a company has nothing to hide, it makes better products. And when customers can see the whole picture, they make better decisions.</p>
         </div>
+
+        <!-- Right column: stat cards
+             Each .stat-card has a label, a big value, and a subtitle.
+             To add a card: copy one .stat-card block and change the text. -->
         <div class="col-stats">
+
           <div class="stat-card">
             <div class="stat-label">Our margin policy</div>
             <div class="stat-value">Published</div>
             <div class="stat-sub">Every venture discloses its margin structure publicly</div>
           </div>
+
           <div class="stat-card">
             <div class="stat-label">Hidden fees</div>
             <div class="stat-value">$0</div>
             <div class="stat-sub">What you see is what you pay</div>
           </div>
+
           <div class="stat-card">
             <div class="stat-label">Warranty fine print</div>
             <div class="stat-value">None</div>
             <div class="stat-sub">One sentence. If it breaks, we fix it.</div>
           </div>
+
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+
+  <!-- ============================================================
+       HOW IT WORKS SECTION
+       .section-dark applies the dark background (see style.css).
+       Each .step has a number on the left and content on the right.
+       To add a step: copy a .step block and update the number and text.
+       ============================================================ -->
   <section class="section section-dark" id="how">
     <div class="container">
       <div class="section-label">How it works</div>
       <h2>The Transparency standard.</h2>
       <p class="section-intro">Every company we build or invest in must meet three requirements before launch.</p>
+
       <div class="steps">
+
         <div class="step">
           <div class="step-num">01</div>
           <div class="step-content">
@@ -100,6 +180,7 @@
             <p>We publish a breakdown of what the product or service actually costs to deliver — materials, labor, platform overhead, logistics. No rounding. No vague "production costs."</p>
           </div>
         </div>
+
         <div class="step">
           <div class="step-num">02</div>
           <div class="step-content">
@@ -107,6 +188,7 @@
             <p>Warranties, refund policies, and contracts written in one paragraph or less. If you need a lawyer to understand your purchase, we failed.</p>
           </div>
         </div>
+
         <div class="step">
           <div class="step-num">03</div>
           <div class="step-content">
@@ -114,22 +196,37 @@
             <p>For platform businesses — content, marketplaces, services — every stakeholder can see exactly what percentage goes where. Creators, partners, and customers all have the same information.</p>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- VENTURES -->
+
+  <!-- ============================================================
+       VENTURES SECTION
+       .ventures-grid is a 3-column CSS grid.
+       To add a venture: copy any .venture-card block.
+       Status badge classes:
+         (no modifier)           = green "Active" badge
+         .venture-status-soon    = amber "Coming soon" badge
+         .venture-status-idea    = grey "Exploring" badge
+       .venture-active on the card = green border highlight
+       .venture-placeholder        = transparent background
+       ============================================================ -->
   <section class="section" id="ventures">
     <div class="container">
       <div class="section-label">Ventures</div>
       <h2>What we're building.</h2>
       <p class="section-intro">Each venture is an independent business with its own product — united by one rule: show your work.</p>
+
       <div class="ventures-grid">
 
+        <!-- ── Venture 1: Active ── -->
         <div class="venture-card venture-active">
           <div class="venture-status">Active</div>
           <h3>OpenStream</h3>
           <p>A video platform where every creator dashboard shows the full split: ad revenue, hosting costs, creator payout, and platform margin — visible to creators and viewers alike.</p>
+          <!-- Numbers table — each .vn-item is one label/value row -->
           <div class="venture-numbers">
             <div class="vn-item">
               <span class="vn-label">Creator cut</span>
@@ -146,6 +243,7 @@
           </div>
         </div>
 
+        <!-- ── Venture 2: Coming soon ── -->
         <div class="venture-card">
           <div class="venture-status venture-status-soon">Coming soon</div>
           <h3>SimpleAppliance</h3>
@@ -166,6 +264,9 @@
           </div>
         </div>
 
+        <!-- ── Venture 3: Placeholder / Exploring ──
+             PLACEHOLDER: Replace with a real venture when ready,
+             or remove this card entirely. -->
         <div class="venture-card venture-placeholder">
           <div class="venture-status venture-status-idea">Exploring</div>
           <h3>Your industry?</h3>
@@ -176,23 +277,41 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+
+  <!-- ============================================================
+       CONTACT SECTION
+       .section-dark = dark background.
+       .contact-container = centers everything.
+       The email is a mailto: link — clicking it opens the
+       user's default email client with your address pre-filled.
+       ============================================================ -->
   <section class="section section-dark" id="contact">
     <div class="container contact-container">
       <div class="section-label">Contact</div>
       <h2>Get in touch.</h2>
       <p class="section-intro">Questions about our ventures, partnership ideas, or just want to talk about why more companies should show their numbers? We're easy to reach.</p>
+
       <div class="contact-info">
+        <!-- mailto: opens the visitor's email app with your address -->
+        <!-- PLACEHOLDER: Update this email address if it changes -->
         <a href="mailto:freese@simplecare.health" class="contact-link">
           <span class="contact-icon">✉</span>
           freese@simplecare.health
         </a>
       </div>
+
       <p class="contact-note">We respond within one business day. No automated replies, no ticketing system — just a person.</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
+
+  <!-- ============================================================
+       FOOTER
+       Three items spread across the bottom bar:
+       left = brand name, center = copyright, right = tagline.
+       On mobile they stack vertically (see style.css responsive).
+       PLACEHOLDER: Update the year in the copyright line annually.
+       ============================================================ -->
   <footer>
     <div class="container footer-inner">
       <span class="wordmark">Transparency</span>
@@ -201,20 +320,38 @@
     </div>
   </footer>
 
+
+  <!-- ============================================================
+       JAVASCRIPT — small, no libraries needed
+
+       1. MOBILE NAV TOGGLE
+          Clicking ☰ adds/removes the .open class on .nav-links,
+          which shows/hides the dropdown menu (see style.css).
+
+       2. SMOOTH SCROLL
+          Intercepts clicks on any link starting with # and
+          scrolls smoothly to that section instead of jumping.
+
+       3. FADE-IN ON SCROLL
+          Uses IntersectionObserver to watch for elements with
+          class="fade-target". When they enter the viewport,
+          adds class="visible" which triggers the CSS transition.
+          To make a new element fade in: add class="fade-target"
+          to it in the HTML above — no JS changes needed.
+       ============================================================ -->
   <script>
-    // Mobile nav toggle
+    // ── 1. Mobile nav toggle ──
     const toggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     toggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
     });
-
-    // Close nav on link click (mobile)
+    // Close the nav when any link is tapped (mobile UX)
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('open'));
     });
 
-    // Smooth scroll
+    // ── 2. Smooth scroll for anchor links ──
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const target = document.querySelector(a.getAttribute('href'));
@@ -225,19 +362,24 @@
       });
     });
 
-    // Fade-in on scroll
+    // ── 3. Fade-in on scroll ──
+    // threshold: 0.1 means the animation triggers when 10% of the
+    // element is visible in the viewport
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          observer.unobserve(e.target);
+          observer.unobserve(e.target); // stop watching once it's appeared
         }
       });
     }, { threshold: 0.1 });
+
+    // Apply fade-in to these element types
     document.querySelectorAll('.step, .venture-card, .stat-card').forEach(el => {
       el.classList.add('fade-target');
       observer.observe(el);
     });
   </script>
+
 </body>
 </html>
