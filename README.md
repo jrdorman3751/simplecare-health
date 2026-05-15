@@ -35,8 +35,8 @@ Install normally. On Mac, drag to Applications. On Windows, run the installer.
 ## 3. Configure Git with Your Identity
 Open VS Code → Terminal → New Terminal, then run:
 ```bash
-git config --global user.name "Julian Dorman"
-git config --global user.email "freese@simplecare.health"
+git config --global user.name "username"
+git config --global user.email "name@email"
 ```
 
 Verify:
